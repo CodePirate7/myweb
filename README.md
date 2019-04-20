@@ -1,2 +1,3 @@
 # myweb
-gzu srt
+cnpm i 
+# node app.js
