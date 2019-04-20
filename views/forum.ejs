@@ -1,0 +1,280 @@
+<main style="margin-top:6rem!important;min-width:1154px;" class="container">
+  <!-- 搜索栏 -->
+  <section>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">搜索</button>
+      </div>
+    </div>
+  </section>
+  <!-- 热门和我的关注部分 -->
+  <section>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#hot">当前热门</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#myflow">我的关注</a>
+      </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content mb-3">
+      <div id="hot" class="tab-pane active ">
+        <table class="table table-hover row mx-0 mb-3">
+          <thead class="text-center w-100">
+            <tr class="row mx-0">
+              <th class="col-1"></th>
+              <th class="col-5"></th>
+              <th class="col-2">作者</th>
+              <th class="col-2">回复/查看</th>
+              <th class="col-2">最后回复</th>
+            </tr>
+          </thead>
+          <tbody class=" w-100">
+
+          </tbody>
+        </table>
+      </div>
+      <div id="myflow" class="container tab-pane fade">
+        <table class="table table-hover row mx-0">
+          <thead class="text-center w-100">
+            <tr class="row mx-0">
+              <th class="col-1"></th>
+              <th class="col-5"></th>
+              <th class="col-2">作者</th>
+              <th class="col-2">回复/查看</th>
+              <th class="col-2">最后回复</th>
+            </tr>
+          </thead>
+          <tbody class=" w-100">
+            <tr class="row mx-0">
+              <td class="col-1">John</td>
+              <td class="col-5">Doe</td>
+              <td class="col-2 text-center">chenshije</td>
+              <td class="col-2 text-center">1000 / 1520</td>
+              <td class="col-2 text-center">2019.3.21</td>
+            </tr>
+            <tr class="row mx-0">
+              <td class="col-1">Mary</td>
+              <td class="col-5">Moe</td>
+              <td class="col-2 text-center">chenshije</td>
+              <td class="col-2 text-center">1000 / 1520</td>
+              <td class="col-2 text-center">2019.3.21</td>
+            </tr>
+            <tr class="row mx-0">
+              <td class="col-1">July</td>
+              <td class="col-5">Dooley</td>
+              <td class="col-2 text-center">chenshije</td>
+              <td class="col-2 text-center">1000 / 1520</td>
+              <td class="col-2 text-center">2019.3.21</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+  <section>
+    <form action="" id="form1">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">标题</span>
+        </div>
+        <input type="text" name="title" class="form-control" placeholder="">
+      </div>
+
+      <div id="summernote"></div>
+      <div class="mt-2">
+        <% if(login){%>
+        <button id="sub" type="submit" class="btn btn-primary" data-id='<%= user.id %>'>发布</button>
+        <% }else{%>
+        <button id="sub" type="submit" class="btn btn-primary" data-id=null>发布</button>
+        <% }%>
+      </div>
+    </form>
+  </section>
+
+
+</main>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+<script>
+  toastr.options.positionClass = 'toast-center-center';
+  //标题active
+  $(function () {
+    $('#myTab li:eq(1) a').tab('show');
+  });
+  //初始化富文本编辑器
+  $('#summernote').summernote({
+    placeholder: '在此输入内容',
+    tabsize: 2,
+    height: 200,
+  });
+  //设置背景隐藏
+  $(function () {
+    $('input').css("background", "transparent")
+    $('.note-editable').css("background", "transparent")
+    $('.note-toolbar').css("background", "transparent")
+  });
+  //canvas
+  $(function () {
+
+  });
+  (function () {
+    $("#submenu li").eq(0).removeClass('active');
+    $("#submenu li").eq(1).addClass('active');
+  }());
+  //获取文章列表
+  (function (data) {
+    $.ajax({
+      url: '/article',
+      method: 'get',
+      success(data) {
+        console.log(data);
+        let str = ''
+        $.each(data, (i, val) => {
+          let reg = /[^T]+/
+          let time = reg.exec(data[i].createdAt)
+          str += `<tr class="row mx-0">
+              <td class="col-1"><img src="/images/delf.jpeg" class="rounded-circle" alt=""
+                style="width:30px;height:30px;"></td>
+              <td class="col-5"><a href="/nr/${data[i].id}" class="text-dark">${data[i].title}</a></td>
+              <td class="col-2 text-center">${data[i].author.username}</td>
+              <td class="col-2 text-center">${data[i].comments.length} / ${data[i].views}</td>
+              <td class="col-2 text-center">${time}</td>
+            </tr>
+          </tbody>`
+          $('tbody').append(function (k) {
+            return str
+          })
+        })
+        var canvas = document.getElementById("cas");
+        var ctx = canvas.getContext("2d");
+        resize();
+        window.onresize = resize;
+        function resize() {
+          canvas.width = $(window).width();
+          canvas.height = document.body.offsetHeight;
+        }
+        var RAF = (function () {
+          return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window
+            .mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function (callback) {
+              window.setTimeout(callback, 1000 / 60);
+            };
+        })();
+        // 鼠标活动时，获取鼠标坐标
+        var warea = {
+          x: null,
+          y: null,
+          max: 20000
+        };
+        window.onmousemove = function (e) {
+          e = e || window.event;
+          warea.x = e.clientX;
+          warea.y = e.clientY;
+        };
+        window.onmouseout = function (e) {
+          warea.x = null;
+          warea.y = null;
+        };
+        // 添加粒子
+        // x，y为粒子坐标，xa, ya为粒子xy轴加速度，max为连线的最大距离
+        var dots = [];
+        for (var i = 0; i < 200; i++) {
+          var x = Math.random() * canvas.width;
+          var y = Math.random() * canvas.height;
+          var xa = Math.random() * 2 - 1;
+          var ya = Math.random() * 2 - 1;
+          dots.push({
+            x: x,
+            y: y,
+            xa: xa,
+            ya: ya,
+            max: 6000
+          })
+        }
+        // 延迟100秒开始执行动画，如果立即执行有时位置计算会出错
+        setTimeout(function () {
+          animate();
+        }, 100);
+        // 每一帧循环的逻辑
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          // 将鼠标坐标添加进去，产生一个用于比对距离的点数组
+          var ndots = [warea].concat(dots);
+          dots.forEach(function (dot) {
+            // 粒子位移
+            dot.x += dot.xa;
+            dot.y += dot.ya;
+            // 遇到边界将加速度反向
+            dot.xa *= (dot.x > canvas.width || dot.x < 0) ? -1 : 1;
+            dot.ya *= (dot.y > canvas.height || dot.y < 0) ? -1 : 1;
+            // 绘制点
+            ctx.fillRect(dot.x - 0.5, dot.y - 0.5, 1, 1);
+            // 循环比对粒子间的距离
+            for (var i = 0; i < ndots.length; i++) {
+              var d2 = ndots[i];
+              if (dot === d2 || d2.x === null || d2.y === null) continue;
+              var xc = dot.x - d2.x;
+              var yc = dot.y - d2.y;
+              // 两个粒子之间的距离
+              var dis = xc * xc + yc * yc;
+              // 距离比
+              var ratio;
+              // 如果两个粒子之间的距离小于粒子对象的max值，则在两个粒子间画线
+              if (dis < d2.max) {
+                // 如果是鼠标，则让粒子向鼠标的位置移动
+                if (d2 === warea && dis > (d2.max / 2)) {
+                  dot.x -= xc * 0.03;
+                  dot.y -= yc * 0.03;
+                }
+                // 计算距离比
+                ratio = (d2.max - dis) / d2.max;
+                // 画线
+                ctx.beginPath();
+                ctx.lineWidth = ratio / 2;
+                ctx.strokeStyle = 'rgba(0,0,0,' + (ratio + 0.2) + ')';
+                ctx.moveTo(dot.x, dot.y);
+                ctx.lineTo(d2.x, d2.y);
+                ctx.stroke();
+              }
+            }
+            // 将已经计算过的粒子从数组中删除
+            ndots.splice(ndots.indexOf(dot), 1);
+          });
+          RAF(animate);
+        }
+      }
+    })
+
+  }());
+  //提交文章
+  (function () {
+    $('#form1').submit(e => {
+      if ('<%- login %>') {
+        let id = $('#sub').data('id')
+        let data = $('#form1').serialize()
+        data += `&&content=${$('#summernote').summernote('code')}&&author=${id}`
+        $.ajax({
+          url: '/article/create',
+          method: 'post',
+          data: data,
+          success(data) {
+            toastr.success("发布成功!");
+            setTimeout(function () {
+              window.location.reload()
+            }, 2000)
+          }
+        })
+        return false;
+      } else {
+        alert("请先登录!")
+        return false;
+      }
+
+    })
+  }());
+
+</script>
