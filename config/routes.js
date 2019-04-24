@@ -49,6 +49,9 @@ module.exports.routes = {
   'GET /person': ( req , res ) => {
     res.view('person',{title: '个人中心',login: req.session.login,user: req.session.user})
   },
+  'GET /projectlist': ( req , res ) => {
+    res.view('projectlist',{title: '项目分类',login: req.session.login,user: req.session.user})
+  },
   'GET /nr/:id': 'ArticleController.view',
   'GET /logout': 'UserController.logout',
   'POST /login': 'UserController.login',
