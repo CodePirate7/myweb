@@ -1,3 +1,4 @@
 # myweb
-``` npm i
-``` node app.js
+```
+npm i
+node app.js
