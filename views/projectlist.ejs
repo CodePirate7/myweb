@@ -1,33 +1,34 @@
 <style lang="">
   .left {
-    width: 100px;
+    width: 46px;
     position: fixed;
     top: 15%;
-    left: 13%;
+    left: 0%;
   }
 </style>
 <main>
-  <section>
-    <div class="left shadow-sm">
-      <div class="nav flex-column nav-pills">
-        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-          aria-controls="v-pills-home" aria-selected="true">软件工程</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-          aria-controls="v-pills-profile" aria-selected="false">大 数 据 </a>
-        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
-          aria-controls="v-pills-messages" aria-selected="false">云  计 算 </a>
-        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
-          aria-controls="v-pills-settings" aria-selected="false">交互设计</a>
-          <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-          aria-controls="v-pills-home" aria-selected="true">数字媒体</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-          aria-controls="v-pills-profile" aria-selected="false">信息安全</a>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- 这里是卡片 -->
   <div class="album py-5 bg-light">
+      <section class="container">
+          <div class="left shadow-sm">
+            <div class="nav flex-column nav-pills">
+              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                aria-controls="v-pills-home" aria-selected="true">软件工程</a>
+              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                aria-controls="v-pills-profile" aria-selected="false">大 数 据 </a>
+              <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                aria-controls="v-pills-messages" aria-selected="false">云  计 算 </a>
+              <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                aria-controls="v-pills-settings" aria-selected="false">交互设计</a>
+                <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                aria-controls="v-pills-home" aria-selected="true">数字媒体</a>
+              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                aria-controls="v-pills-profile" aria-selected="false">信息安全</a>
+            </div>
+          </div>
+        </section>
     <div class="container">
       <h3 style="color:#344c67"><i class="fas fa-link"></i> 软件工程</h3>
       <div class="row my-2">
@@ -800,6 +801,11 @@
     </div>
   </div>
 
+  <section>
+    <div>
+      <i class="glyphicon glyphicon-home"></i>回到顶部
+    </div>
+  </section>
 </main>
 <script src="https://cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
 <script>
@@ -821,5 +827,21 @@
         $.scrollTo(H3[i], 500)
       }
     }
+  })
+
+  //手机屏幕导航变横
+  $(()=>{
+    $(window).resize(()=>{
+      console.log($(window).width())
+      if($(window).width() < 616){
+        $('section .shadow-sm').removeClass('left')
+        $('section .shadow-sm .nav').removeClass('flex-column')
+      }else{
+        $('section .shadow-sm').addClass('left')
+        $('section .shadow-sm .nav').addClass('flex-column')
+      }
+    })
+    
+    
   })
 </script>
