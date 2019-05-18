@@ -55,6 +55,15 @@ module.exports.routes = {
   'GET /projectdetail': ( req , res ) => {
     res.view('projectdetail',{title: '项目详情',login: req.session.login,user: req.session.user})
   },
+  'GET /view': ( req , res ) => {
+    res.view('view',{title: '观看模式',login: req.session.login,user: req.session.user})
+  },
+  'GET /individual': ( req , res ) => {
+    res.view('individual',{title: '个人模式',login: req.session.login,user: req.session.user})
+  },
+  'GET /group': ( req , res ) => {
+    res.view('group',{title: '团队模式',login: req.session.login,user: req.session.user})
+  },
   'GET /nr/:id': 'ArticleController.view',
   'GET /logout': 'UserController.logout',
   'POST /login': 'UserController.login',

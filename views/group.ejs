@@ -1,0 +1,65 @@
+<main class="" style="margin-top: 5rem!important;">
+    <section class="container mt-3">
+        <h2 class="" style="font-size: 26px; font-weight: bold;">团队模式</h2>
+        <p class="" style="font-size: 20px;">在团队模式下，你第一步需要进行召集自己的伙伴进行组队，本项目需要3-5人共同组队方法继续进行，体验团队的重要性，锻炼队友之间的相互配合能力
+        </p>
+
+         <div class="border-top py-5">
+            <div class="row m-0">
+                <div class="col border bg-light" style="height: 200px;"></div>
+                <div class="col">
+                    <div class="" style="font-weight: bold; font-size: 30px;">First</div>
+                    <p>召集队友即可开始体验团队模式</p>
+                    <button class="btn btn-info" type="button">选择好友</button>
+                    <button class="btn btn-info" type="button">发布组队公告</button>
+                </div>
+             </div>
+        </div>
+        <div class="border-top py-5">
+            <div class="row m-0">
+                <div class="col border bg-light" style="height: 200px;">
+                  
+                </div>
+                <div class="col">
+                    <div class="" style="font-weight: bold; font-size: 30px;">Second</div>
+                    <p>组队成功后，你们需要进行分工</p>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-work" aria-expanded="false" aria-controls="collapseExample">
+                        开始分工
+                      </button>
+                     
+                </div>
+             </div>
+             <div class="collapse mt-1" id="collapseExample-work">
+                <div class="card card-body">这里是分工细节</div>
+            </div>
+        </div>
+
+        <div class="border-top py-5">
+            <div class="row m-0">
+                <div class="col border bg-light" style="height: 200px;">
+                  
+                </div>
+                <div class="col">
+                    <div class="" style="font-weight: bold; font-size: 30px;">Third</div>
+                    <p>你的分工是前端，待页面设计好之后，你可以开始写静态网页，如果你有有页面设计基础，你可以选择和页面设计人员一个设计，以便后续开发更高效</p>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-mywork1" aria-expanded="false" aria-controls="collapseExample">
+                        开始我的第一步工作
+                      </button>
+                     
+                </div>
+             </div>
+             <div class="collapse mt-1" id="collapseExample-mywork1">
+                <div class="card card-body">这里是分工的工作</div>
+            </div>
+        </div>
+
+        <p class="" style="margin-top: 70px;">三个模式已经完成。。。。。</p>
+        <button class="btn btn-info">结束</button>
+    </section>
+</main>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();   
+    });
+</script>
