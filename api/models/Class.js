@@ -1,28 +1,22 @@
 /**
- * Article.js
+ * Class.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
 module.exports = {
+
   attributes: {
-    title:{
-      type: 'string'
+    classname:{
+      type:'string'
     },
-    content:{
-      type: 'string'
-    },
-    author:{
+    creater:{
       model: 'user'
     },
-    views:{
-      type: 'integer',
-      defaultsTo: 0
-    },
-    comments:{
-      collection: 'comment',
-      via: 'article'
+    members:{
+      collection: 'user',
+      via: 'class'
     }
   }
 };

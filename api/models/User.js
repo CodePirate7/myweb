@@ -19,6 +19,10 @@ module.exports = {
     articles:{
       collection: 'article',
       via: 'author'
+    },
+    class:{
+      collection: 'class',
+      via: 'members'
     }
   }
 };

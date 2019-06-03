@@ -1,7 +1,7 @@
 <script>
   if (!'<%- login %>') {
     alert('请先登录!')
-    location.href = '/'
+    location.href = '/login'
   }
 </script>
 <main class="container" style="margin-top: 6rem!important">
@@ -116,32 +116,59 @@
 
   <section class="mb-3">
     <h2 class="text-info" style="margin-top: 5rem; ">班级</h2>
-    <div class="input-group mb-3" style="margin-top:1rem">
-      <input type="text" class="form-control" placeholder="在此搜索你想加入的班级">
-      <div class="input-group-append">
-        <button class="btn btn-success" type="submit">搜一搜</button>
-      </div>
+    <div style="margin-top:1rem" class="search">
+        <div class="input-group mb-3" >
+            <input type="text" class="form-control" placeholder="在此搜索你想加入的班级">
+            <div class="input-group-append">
+              <button class="btn btn-success" data-toggle="modal" data-target="#souyisou">搜一搜</button>
+              <div class="modal fade" id="souyisou">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                 
+                      <!-- 模态框头部 -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">搜索结果</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                 
+                      <!-- 模态框主体 -->
+                      <div class="modal-body">
+                        
+                      </div>
+                 
+                      <!-- 模态框底部 -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                      </div>
+                 
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+          <!-- <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center">班级名称</th>
+                <th class="text-center">班级ID</th>
+                <th class="text-center">人数</th>
+                <th class="text-center">创建时间</th>
+                <th class="text-center">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>班级名称</td>
+                <td>班级ID</td>
+                <td>人数</td>
+                <td>创建时间</td>
+                <td style="cursor: pointer;  color: rgb(124, 124, 209);">加入</td>
+              </tr>
+            </tbody>
+          </table> -->
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="text-center">班级名称</th>
-          <th class="text-center">班级ID</th>
-          <th class="text-center">人数</th>
-          <th class="text-center">创建时间</th>
-          <th class="text-center">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="text-center">
-          <td>班级名称</td>
-          <td>班级ID</td>
-          <td>人数</td>
-          <td>创建时间</td>
-          <td style="cursor: pointer;  color: rgb(124, 124, 209);">加入</td>
-        </tr>
-      </tbody>
-    </table>
+    
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#Cr-cla">创建班级</a>
@@ -155,66 +182,61 @@
     </ul>
     <div id="myTabContent" class="tab-content" style="margin-bottom: 20px;">
       <div class="tab-pane active" id="Cr-cla">
-        <table class="table">
+        <table class="table cclass">
           <thead>
             <tr>
               <th class="text-center">班级名称</th>
               <th class="text-center">班级ID</th>
               <th class="text-center">人数</th>
               <th class="text-center">创建时间</th>
-              <th class="text-center" style="cursor: pointer; color: rgb(124,124,209)">再创建</th>
+              <th class="text-center create" style="cursor: pointer; color: rgb(124,124,209)">
+                <span data-toggle="modal" data-target="#createClass">创建</span>
+                <div class="modal fade" id="createClass">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                   
+                        <!-- 模态框头部 -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">创建班级</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                   
+                        <!-- 模态框主体 -->
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">班级名称</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="班级名称">
+                            </div>
+                        </div>
+                   
+                        <!-- 模态框底部 -->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">提交</button>
+                        </div>
+                   
+                      </div>
+                    </div>
+                  </div>
+              </th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="text-center">
-              <td>班级名称</td>
-              <td>班级ID</td>
-              <td>人数</td>
-              <td>创建时间</td>
-              <td style="cursor: pointer; color: rgb(124,124,209)">删除</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr class="text-center">
-              <td>暂无创建班级</td>
-              <td>无</td>
-              <td>无</td>
-              <td>无</td>
-              <td>无</td>
-            </tr>
-          </tbody>
         </table>
       </div>
 
       <div class="tab-pane fade" id="My-cla">
-        <table class="table">
+        <table class="table my-cla">
           <thead>
             <tr>
               <th class="text-center">班级名称</th>
               <th class="text-center">班级ID</th>
-              <th class="text-center">人数</th>
               <th class="text-center">创建时间</th>
               <th class="text-center">操作</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="text-center">
-              <td>班级名称</td>
-              <td>班级ID</td>
-              <td>人数</td>
-              <td>创建时间</td>
-              <td style="cursor: pointer; color: rgb(124, 124, 209);">退出</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr class="text-center">
-              <td>暂无加入班级</td>
-              <td>无</td>
-              <td>无</td>
-              <td>无</td>
-              <td>无</td>
-            </tr>
-          </tbody>
+          
+          
         </table>
       </div>
 
@@ -332,15 +354,176 @@
 
 <!-- 选项卡 -->
 <script>
-  $(function () {
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-      // Get the name of active tab
-      var activeTab = $(e.target).text();
-      // Get the name of previous tab
-      var previousTab = $(e.relatedTarget).text();
-      $(".active-tab span").html(activeTab);
-      $(".previous-tab span").html(previousTab);
-    });
+  toastr.options.positionClass = 'toast-center-center';
+  let id = '<%- user.id %>'
+  //创建班级
+  $(()=>{
+    $('.create .modal-footer button').on('click',()=>{
+      let classname = $('.create .modal-body input')[0].value
+      $('.create .modal-body input')[0].value = ''
+      
+      let data = {
+        classname: classname,
+        creater: id,
+        members: id
+      }
+      $.ajax({
+      url:'/class/create',
+      method: 'post',
+      data: data,
+      success: (msg)=>{
+        console.log(msg)
+        toastr.success("创建成功!");
+        setTimeout(function () {
+              window.location.reload()
+        }, 1500)
+      }
+    })
+  })
+
+});
+
+  //获取创建班级列表
+  $(()=>{
+   
+    $.ajax({
+      url:'/class',
+      method: 'get',
+      success: ( res ) => {
+        let classes = []
+        let str = ''
+        $.each( res, ( index, val ) => {
+          if( id == val.creater.id ) 
+            classes.push( val )
+        })
+        if( !classes.length  ){
+          str = `<tbody class="nocreate"><tr class="text-center"><td>暂无创建班级</td><td>无</td><td>无</td><td>无</td></tr></tbody>`
+        }else{
+          $.each( classes, ( i , v) => {
+            let reg = /[^T]+/
+            let time = reg.exec(v.createdAt)
+            str +=`
+            <tbody>
+            <tr class="text-center">
+              <td>${v.classname}</td>
+              <td>${v.id}</td>
+              <td>${v.members.length}</td>
+              <td>${time}</td>
+              <td style="cursor: pointer; color: rgb(124,124,209)" >删除</td>
+            </tr>
+          </tbody>`
+          })
+        }
+        $('.cclass').append( () => {
+            return str
+        })
+        let td = $('.cclass td')
+        $.each(td,(i,v)=>{
+          if( i % 5 == 4){
+            $('.cclass td').eq(i).on('click',( )=>{
+              let classid = $('.cclass td')[i-3].innerHTML
+              $.ajax({
+                url:`/class/${classid}`,
+                method: 'delete',
+                success(res){
+                  toastr.success("删除成功!")
+                  
+                  setTimeout(function () {
+                  window.location.reload()
+                  }, 1500)
+                }
+              })
+            })
+          }
+        })
+      }
+    })
+
+
   });
+
+  //获取已加入班级列表
+  $(()=>{
+ 
+    $.ajax({
+      url:`/user/${id}`,
+      method: 'get',
+      success: ( res ) => {
+        let str = ''
+        if( !res.class.length  ){
+          str = 
+          `<tbody class="nocreate">
+            <tr class="text-center">
+              <td>暂无加入班级</td>
+              <td>无</td>
+              <td>无</td></tr></tbody>`
+        }else{
+          $.each( res.class, ( i , v) => {
+            let reg = /[^T]+/
+            let time = reg.exec(v.createdAt)
+            str +=`
+            <tbody>
+            <tr class="text-center">
+              <td>${v.classname}</td>
+              <td>${v.id}</td>
+              
+              <td>${time}</td>
+              <td style="cursor: pointer; color: rgb(124,124,209)">退出</td>
+            </tr>
+          </tbody>`
+          })
+        }
+        $('.my-cla').append( () => {
+            return str
+        })
+      }
+    })
+  });
+
+  $(()=>{
+    $('.search button').on('click',()=>{
+      $('.search #souyisou .modal-body').empty()
+      let classname = $('.search input')[0].value
+      let classList =''
+      let str = ''
+      $.ajax({
+        url:'/class',
+        method:'get',
+        success: ( res ) => {
+          classList = res
+        }
+      })
+      if( !classList.length ){
+        str = `未找到指定班级,请重新输入查找。`
+      }
+      $('.search #souyisou .modal-body').append( ()=>{
+        return str
+      })
+    })
+  })
+
+  // $(()=>{
+  //   let id = '<%- user.id %>'
+
+  //   let data = {
+  //     classname: "软工171",
+  //     creater: id,
+  //   }
+
+    
+      
+    // })
+    // $.ajax({
+    //   url:'/class/5cf517925ab48e3964941326',
+    //   method:'put',
+    //   data: {
+    //     members: id
+    //   },
+    //   success(msg){
+    //     console.log(msg)
+    //   }
+    // })
+
+  // });
 
 </script>

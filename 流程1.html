@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>流程</title></head>
+<body><h2>项目流程体验平台开发文档</h2>
+<h3>一、确定开发需求</h3>
+<h4>项目主要分为:</h4>
+<ul>
+<li>首页 (展示新闻资讯和项目分类)</li>
+<li>新闻中心(详细展示新闻列表)</li>
+<li>论坛中心(用于给用户讨论交流)</li>
+<li>个人中心(查看、修改个人信息、创建以及加入班级)</li>
+<li>登录 and 注册</li>
+
+</ul>
+<h3>二、 前期准备工作</h3>
+<h4>平面设计设计项目页面:</h4>
+<h4>后端人员设计数据库以及api:</h4>
+<h3>三、 代码实现过程</h3>
+<p>前端: bootstrap4 + ejs</p>
+<p>后端: sails.js + mongodb</p>
+<h4>前端部分:</h4>
+<h5>1. 环境搭建</h5>
+<ul>
+<li><p>安装node.js 环境,安装过程参考官网()</p>
+</li>
+<li><p>安装sails.js</p>
+</li>
+<li><pre><code class='language-shell' lang='shell'>npm install -g sails@0.12.14
+</code></pre>
+</li>
+
+</ul>
+<h5>2. 项目初始化</h5>
+<ul>
+<li><pre><code class='language-shell' lang='shell'>sails new ppep
+</code></pre>
+</li>
+<li><p>启动项目</p>
+</li>
+<li><pre><code class='language-shell' lang='shell'>cd ppep
+sails lifts
+</code></pre>
+</li>
+
+</ul>
+<h5>3. 前端代码实现</h5>
+<p>home.ejs(首页):</p>
+<pre><code class='language-html' lang='html'>
+</code></pre>
+<h5>4. 后端代码实现</h5>
+<ol start='' >
+<li>每个路由指向指定的页面 routes.js</li>
+
+</ol>
+<pre><code class='language-javascript' lang='javascript'>//首页
+&#39;/&#39;: ( req , res ) =&gt; {
+    res.view(&#39;homepage&#39;,{title: &#39;项目流程体验平台&#39;,login: req.session.login,user: req.session.user})
+  }, 
+ //注册
+  &#39;GET /reg&#39;:( req , res ) =&gt; {
+    res.view(&#39;reg&#39;,{title: &#39;注册&#39;,login: req.session.login,user: req.session.user})
+  },
+ //登录
+  &#39;GET /login&#39;:( req , res ) =&gt; {
+    res.view(&#39;login&#39;,{title: &#39;登录&#39;,login: req.session.login,user: req.session.user})
+  },
+ //新闻列表
+  &#39;GET /news&#39;:( req , res ) =&gt; {
+    res.view(&#39;news&#39;,{title: &#39;新闻中心&#39;,login: req.session.login,user: req.session.user})
+  },
+ //论坛
+  &#39;GET /forum&#39;:( req , res ) =&gt; {
+    res.view(&#39;forum&#39;,{title: &#39;站内论坛&#39;,login: req.session.login,user: req.session.user})
+  },
+ //个人中心
+  &#39;GET /person&#39;: ( req , res ) =&gt; {
+    res.view(&#39;person&#39;,{title: &#39;个人中心&#39;,login: req.session.login,user: req.session.user})
+  },
+//项目分类
+  &#39;GET /projectlist&#39;: ( req , res ) =&gt; {
+    res.view(&#39;projectlist&#39;,{title: &#39;项目分类&#39;,login: req.session.login,user: req.session.user})
+  },
+//项目详情
+  &#39;GET /projectdetail&#39;: ( req , res ) =&gt; {
+    res.view(&#39;projectdetail&#39;,{title: &#39;项目详情&#39;,login: req.session.login,user: req.session.user})
+  },
+//观看模式页面
+  &#39;GET /view&#39;: ( req , res ) =&gt; {
+    res.view(&#39;view&#39;,{title: &#39;观看模式&#39;,login: req.session.login,user: req.session.user})
+  },
+//个人模式
+  &#39;GET /individual&#39;: ( req , res ) =&gt; {
+    res.view(&#39;individual&#39;,{title: &#39;个人模式&#39;,login: req.session.login,user: req.session.user})
+  },
+//团队模式
+  &#39;GET /group&#39;: ( req , res ) =&gt; {
+    res.view(&#39;group&#39;,{title: &#39;团队模式&#39;,login: req.session.login,user: req.session.user})
+  },
+//查看帖子内容
+  &#39;GET /nr/:id&#39;: &#39;ArticleController.view&#39;,
+//退出登录
+  &#39;GET /logout&#39;: &#39;UserController.logout&#39;,
+//提交登录信息
+  &#39;POST /login&#39;: &#39;UserController.login&#39;,
+//提交注册信息
+  &#39;POST /reg&#39;: &#39;UserController.reg&#39;,
+//提交评论
+  &#39;POST /commentview&#39; : &#39;ArticleController.commentview&#39;
+</code></pre>
+<ol start='2' >
+<li>userService.js 存放着对用户的一些逻辑操作代码</li>
+
+</ol>
+<pre><code class='language-javascript' lang='javascript'>module.exports = {
+    //登录模块的代码逻辑
+  login: ( req , res ) =&gt; {
+      const user = req.body
+      const username = user.username
+      const password = user.password
+      User.findOne({username}, (err, data) =&gt; {
+        if (data) {
+          if (data.password === password) {
+            //保存登陆状态
+            req.session.login = true
+            req.session.user = data
+            return res.send({
+              msg: &quot;登陆成功&quot;,
+              code: 0
+            })
+          }
+          return res.send({
+            msg: &quot;账号或密码错误,请重新输入&quot;,
+            code: 1
+          })
+        }
+        res.send({
+          msg: &quot;用户不存在&quot;,
+          code: 1
+        })
+      })
+    },
+  //注册模块的代码逻辑
+  reg: ( req , res ) =&gt; {
+    console.log(req.body);
+    const user = req.body
+    const username = user.username
+    const password = user.password
+    const major = user.major
+    User.findOne({username},(err,data)=&gt;{
+      if( data ){
+        return res.send({code: 1,msg: &quot;用户已存在,请重新输入&quot;})
+      }
+      User.create({username,password,major},( err , data )=&gt;{
+        if (err) {
+          res.send({code: 1,msg: &#39;数据库错误!注册失败!请稍后再试!&#39;})
+      }
+      res.send({code: 0,msg: &quot;注册成功!&quot;})
+      })
+    })
+    
+  },
+  //退出的代码逻辑
+  logout: ( req , res ) =&gt; {
+    req.session.destroy()
+    res.redirect(&quot;/&quot;)
+  }
+}
+
+</code></pre>
+<ol start='3' >
+<li>articleService.js 存放着对论坛内容的逻辑操作代码</li>
+
+</ol>
+<pre><code class='language-javascript' lang='javascript'>module.exports = {
+  //获取所有帖子内容
+  view: (req, res) =&gt; {
+    let id = req.params.id
+    Article.findOne({
+      id
+    }).populate(&#39;author&#39;).populate(&#39;comments&#39;).exec((err, data) =&gt; {
+      console.log(data);
+      let views = data.views + 1
+      Article.update({id},{views}).exec((err,msg)=&gt;{
+        res.view(&#39;article&#39;, {
+          title: data.title,
+          login: req.session.login,
+          user: req.session.user,
+          data
+        })
+      }) 
+    })
+  },
+  //获取评论内容
+  commentview:( req , res ) =&gt; {
+    Comment.find({article: req.body.id}).populate(&#39;author&#39;).exec((err,data)=&gt;{
+      res.send(data)
+    })
+  }
+}
+
+</code></pre>
+<ol start='4' >
+<li>将上述对模型操控的逻辑代码都导入到对应的控制器中</li>
+
+</ol>
+<p>usercontroller.js  用户控制器</p>
+<pre><code class='language-javascript' lang='javascript'>module.exports = {
+  login: userService.login,
+  reg: userService.reg,
+  logout: userService.logout
+};
+
+
+</code></pre>
+<p>articlecontroller.js 帖子控制器</p>
+<pre><code class='language-javascript' lang='javascript'>module.exports = {
+	view: articleService.view,
+	commentview: articleService.commentview
+};
+</code></pre>
+<ol start='5' >
+<li>创建数据库模型</li>
+
+</ol>
+<p>user.js  用户模型</p>
+<pre><code class='language-javascript' lang='javascript'>module.exports = {
+  attributes: {
+    username: {
+      type: &#39;string&#39;
+    },
+    password: {
+      type: &#39;string&#39;
+    },
+    major:{
+      type: &#39;string&#39;
+    },
+    articles:{
+      collection: &#39;article&#39;,
+      via: &#39;author&#39;
+    }
+  }
+};
+</code></pre>
+<p>comment.js 评论模型</p>
+<pre><code class='language-html' lang='html'>module.exports = {
+
+  attributes: {
+    body:{
+      type: &#39;string&#39;
+    },
+    author: {
+      model: &#39;user&#39;
+    },
+    article:{
+      model: &#39;article&#39;
+    }
+  }
+};
+
+</code></pre>
+<p>article.js 帖子模型</p>
+<pre><code class='language-javascript' lang='javascript'>module.exports = {
+
+  attributes: {
+    title:{
+      type: &#39;string&#39;
+    },
+    content:{
+      type: &#39;string&#39;
+    },
+    author:{
+      model: &#39;user&#39;
+    },
+    views:{
+      type: &#39;integer&#39;,
+      defaultsTo: 0
+    },
+    comments:{
+      collection: &#39;comment&#39;,
+      via: &#39;article&#39;
+    }
+
+  }
+};
+</code></pre>
+<p>&nbsp;</p>
+<h3>四、 扫除bug和代码优化</h3>
+<h3>五、 项目测试</h3>
+<h3>六、 项目上线</h3>
+</body>
+</html>
