@@ -8,6 +8,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="/styles/toastr.css">
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script src="/js/toastr.js"></script>
@@ -43,9 +45,7 @@
             <li class="nav-item"><a href="/forum" class="nav-link"><i class="fas fa-sign-language"></i> 站内论坛</a></li>
             <li class="nav-item"><a href="/news" class="nav-link"><i class="fas fa-newspaper"></i> 新闻中心</a></li>
             <li class="nav-item"><a href="/projectlist" class="nav-link"><i class="fas fa-book"></i> 项目分类</a></li>
-            <% if( login ) {%>
             <li class="nav-item"><a href="/person" class="nav-link"><i class="fas fa-user"></i> 个人中心</a></li>
-            <% }%>
           </ul>
           <ul class="nav navbar-nav ml-auto">
             <% if( login ) {%>
@@ -56,7 +56,6 @@
             <li class="nav-item"><a href="/login" class="nav-link"><i class="fas fa-sign-in-alt"></i> 登录</a></li>
             <li class="nav-item"><a href="/reg" class="nav-link"><i class="fas fa-registered"></i> 注册</a></li>
             <% } %>
-            
           </ul>
         </div>
       </div>

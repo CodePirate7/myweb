@@ -14,35 +14,36 @@
                 </p>
                 <div class="border-top py-5" >
                     <div class="row m-0">
-                        <div class="col border bg-light" style="height: 200px;"></div>
+                        <div class="col border bg-light">
+                            <a href="/html/moreImages.html" target="block"><img src="/images/proClass.jpg" alt="" title="点击查看更多" width="100%"; height="100%";></a>
+                        </div>
                         <div class="col">
-                            <div class="" style="font-weight: bold; font-size: 30px;">First</div>
-                            <p>在这一步中，你需要。。。</p>
-                            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-design1" aria-expanded="false" aria-controls="collapseExample">
-                                试一下
-                              </button>
+                            <div class="" style="font-weight: bold; font-size: 30px;">体验的主要工作</div>
+                            <p style="text-indent: 2em;">做任何一个项目，抓住主要脉络，一步一步去完整肯定是最有效率的，平面设计也是这样，本项目分有首页，新闻中心，项目分类，个人中心，站内论坛五大板块，每个板块的设计图在<span style="color: blue">左边</span>有详细资料，可点击查看</p>
+                            <p style="text-indent: 2em;">你需要完成五大板块的平面设计，当然，你也可以完成更多细节，具体内容在<span style="color: blue">左边</span>也可以查看</p>
                         </div>
                      </div>
-
-                    <div class="collapse mt-1" id="collapseExample-design1">
-                        <div class="card card-body">这里是需要做的案例</div>
-                    </div>
                 </div>
+
+                <p>你需要完成首页，新闻中心，项目分类，个人中心，站内论坛五大板块的页面设计并提交方可完整本模式</p>
+                <div id="summernote1"></div>
+                <button id="sub" type="submit" class="btn btn-primary mt-4" data-id=null>提交</button>
+
             </div>
 
             <div class="tab-pane fade" id="webUI">
                 <p  class="mt-3">
-                这是前端做的工作
+                这是前端程序员做的工作
                 </p>
                 <div class="border-top py-5">
                     <div class="row m-0">
-                        <div class="col border bg-light" style="height: 200px;"></div>
+                            <div class="col border bg-light" style="height: 250px;"><a href="https://github.com/q389491729/myweb" target="block;"><img src="/images/logo.png" alt="" width="100%" height="100%"></a></div>
                         <div class="col">
                             <div class="" style="font-weight: bold; font-size: 30px;">First</div>
-                            <p>在这一步中，你需要。。。</p>
-                            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-webUI1" aria-expanded="false" aria-controls="collapseExample">
+                            <p>编写出页面设计的五个网页的代码实现，并提交。 <span style="color: blue;">左边</span>是项目创始人在GitHub上的实现代码，可提供参考，但我们的建议是，<span style="color: blue;">自己写出效果，再对比别人源码</span>，说不定以可以做的更好</p>
+                            <!-- <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-webUI1" aria-expanded="false" aria-controls="collapseExample">
                                 试一下
-                              </button>
+                              </button> -->
                         </div>
                      </div>
 
@@ -50,6 +51,8 @@
                         <div class="card card-body">这里是需要做的案例</div>
                     </div>
                 </div>
+                <div id="summernote2"></div>
+                <button id="sub" type="submit" class="btn btn-primary mt-4" data-id=null>提交</button>
             </div>
 
             <div class="tab-pane fade" id="inner">
@@ -58,29 +61,45 @@
                 </p>
                 <div class="border-top py-5">
                     <div class="row m-0">
-                        <div class="col border bg-light" style="height: 200px;"></div>
+                            <div class="col border bg-light" style="height: 250px;"><a href="https://github.com/q389491729/myweb" target="block;"><img src="/images/logo.png" alt="" width="100%" height="100%"></a></div>
                         <div class="col">
                             <div class="" style="font-weight: bold; font-size: 30px;">First</div>
-                            <p>在这一步中，你需要。。。</p>
-                            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-inner1" aria-expanded="false" aria-controls="collapseExample">
-                                试一下
-                              </button>
+                            <p>编写出页面设计的五个网页的代码实现，包括后端数据结构实现，数据库建立，并提交。 <span style="color: blue;">左边</span>是项目创始人在GitHub上的实现代码，可提供参考，但我们的建议是，<span style="color: blue;">自己写出效果，再对比别人源码</span>，说不定以可以做的更好</p>
                         </div>
-                     </div>
-
-                    <div class="collapse mt-1" id="collapseExample-inner1">
-                        <div class="card card-body">这里是需要做的案例</div>
                     </div>
                 </div>
+                <div id="summernote3"></div>
+                <button id="sub" type="submit" class="btn btn-primary mt-4" data-id=null>提交</button>
             </div>
         </div>
         <p class="" style="margin-top: 70px;">个人模式下，你已经对大致。。。。。。。可以开始下一模式，你将。。。。。。</p>
-        <button class="btn btn-info">开始下一模式</button>
+        <a class="btn btn-info" href="/group">开始下一模式</a>
     </section>
 </main>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
 <script>
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover();   
     });
+</script>
+
+<script>
+//初始化富文本编辑器
+$('#summernote1').summernote({
+    placeholder: '在此写下设计心得以及上传设计的图片',
+    tabsize: 2,
+    height: 200,
+    });
+$('#summernote2').summernote({
+placeholder: '在此写下设计心得以及上传设计的图片',
+tabsize: 2,
+height: 200,
+});
+$('#summernote3').summernote({
+placeholder: '在此写下设计心得以及上传设计的图片',
+tabsize: 2,
+height: 200,
+});
 </script>

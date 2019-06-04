@@ -64,6 +64,9 @@ module.exports.routes = {
   'GET /group': ( req , res ) => {
     res.view('group',{title: '团队模式',login: req.session.login,user: req.session.user})
   },
+  'GET /groupwork': ( req , res ) => {
+    res.view('groupwork',{title: '团队模式工作',login: req.session.login,user: req.session.user})
+  },
   'GET /nr/:id': 'ArticleController.view',
   'GET /logout': 'UserController.logout',
   'POST /login': 'UserController.login',
