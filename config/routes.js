@@ -68,8 +68,9 @@ module.exports.routes = {
   'GET /logout': 'UserController.logout',
   'POST /login': 'UserController.login',
   'POST /reg': 'UserController.reg',
-  'POST /commentview' : 'ArticleController.commentview'
-  
+  'POST /commentview' : 'ArticleController.commentview',
+  'PUT /class/put/:id': 'ClassController.layout',
+  'PUT /class/add/:id': 'ClassController.add'
   
 
   /***************************************************************************

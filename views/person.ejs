@@ -15,25 +15,25 @@
       <div class="col-8 px-0 ml-3" style="height:200px;">
         <p>
           <span>ID:</span>
-          <span>123456</span>
+          <span> <%- user.id %> </span>
         </p>
         <p>
           <span>用户名:</span>
           <% if (login) {%>
-          <span> <%- user.username %> </span>
+          <span>  <%- user.username %> </span>
           <% }%>
         </p>
         <p>
           <span>班级:</span>
-          <span>123456</span>
+          <span id="classnamelist"></span>
         </p>
         <p>
           <span>发布的项目:</span>
-          <span>123456</span>
+          <span>无</span>
         </p>
         <p>
           <span>体验的项目:</span>
-          <span>123456</span>
+          <span>无</span>
         </p>
       </div>
     </div>
@@ -120,9 +120,9 @@
         <div class="input-group mb-3" >
             <input type="text" class="form-control" placeholder="在此搜索你想加入的班级">
             <div class="input-group-append">
-              <button class="btn btn-success" data-toggle="modal" data-target="#souyisou">搜一搜</button>
-              <div class="modal fade" id="souyisou">
-                  <div class="modal-dialog">
+              <button class="btn btn-success" id="sub" data-toggle="modal" data-target="#souyisou">搜一搜</button>
+              <div class="modal fade " id="souyisou">
+                  <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                  
                       <!-- 模态框头部 -->
@@ -147,26 +147,7 @@
 
             </div>
           </div>
-          <!-- <table class="table">
-            <thead>
-              <tr>
-                <th class="text-center">班级名称</th>
-                <th class="text-center">班级ID</th>
-                <th class="text-center">人数</th>
-                <th class="text-center">创建时间</th>
-                <th class="text-center">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="text-center">
-                <td>班级名称</td>
-                <td>班级ID</td>
-                <td>人数</td>
-                <td>创建时间</td>
-                <td style="cursor: pointer;  color: rgb(124, 124, 209);">加入</td>
-              </tr>
-            </tbody>
-          </table> -->
+          
     </div>
     
     <ul class="nav nav-tabs" role="tablist">
@@ -251,8 +232,8 @@
               <th class="text-center">操作</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="text-center">
+          <tbody >
+            <tr class="text-center" id="serbt">
               <td>班级名称</td>
               <td>班级ID</td>
               <td>人数</td>
@@ -372,7 +353,6 @@
       method: 'post',
       data: data,
       success: (msg)=>{
-        console.log(msg)
         toastr.success("创建成功!");
         setTimeout(function () {
               window.location.reload()
@@ -444,12 +424,12 @@
 
   //获取已加入班级列表
   $(()=>{
- 
     $.ajax({
       url:`/user/${id}`,
       method: 'get',
       success: ( res ) => {
         let str = ''
+        let classNameList = []
         if( !res.class.length  ){
           str = 
           `<tbody class="nocreate">
@@ -461,12 +441,12 @@
           $.each( res.class, ( i , v) => {
             let reg = /[^T]+/
             let time = reg.exec(v.createdAt)
+            classNameList.push(v.classname)
             str +=`
             <tbody>
-            <tr class="text-center">
+            <tr class="text-center" id='classed'>
               <td>${v.classname}</td>
               <td>${v.id}</td>
-              
               <td>${time}</td>
               <td style="cursor: pointer; color: rgb(124,124,209)">退出</td>
             </tr>
@@ -476,31 +456,105 @@
         $('.my-cla').append( () => {
             return str
         })
+        $.each( classNameList, ( i, v) => {
+          $('#classnamelist')[0].innerHTML += `${v} `
+        })
+        let td = $('#classed td')
+        $.each(td ,(i,v)=>{
+          if( i % 4 == 3){
+            $('#classed td').eq(i).on('click',()=>{
+              let classid = $('#classed td')[i-2].innerHTML
+              console.log( classid )
+              $.ajax({
+                url:`/class/put/${classid}`,
+                method: 'put',
+                data:{
+                  userid: id
+                },
+                success(res){
+                  toastr.success("退出成功!")
+                  setTimeout(function () {
+                  window.location.reload()
+                  }, 1500)
+                }
+              })
+            })
+          }
+        })
       }
-    })
+    })  
   });
 
+  //查找班级
   $(()=>{
-    $('.search button').on('click',()=>{
+    $('.search #sub').on('click',()=>{
       $('.search #souyisou .modal-body').empty()
       let classname = $('.search input')[0].value
       let classList =''
       let str = ''
+      let flag = false
       $.ajax({
         url:'/class',
         method:'get',
         success: ( res ) => {
-          classList = res
+          $.each( res, ( i, v) => {
+          if( v.classname == classname ){
+            classList = v
+          }})
+          if( classList ){
+            str = `<table class="table">
+            <thead>
+              <tr>
+                <th class="text-center">班级名称</th>
+                <th class="text-center">班级ID</th>
+                <th class="text-center">人数</th>
+                <th class="text-center">创建时间</th>
+                <th class="text-center">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center " id="serbt">
+                <td>${classList.classname}</td>
+                <td>${classList.id}</td>
+                <td>${classList.members.length}</td>
+                <td>${/[^T]+/.exec(classList.createdAt)}</td>
+                <td style="cursor: pointer;  color: rgb(124, 124, 209);">加入</td>
+              </tr>
+            </tbody>
+          </table>`
+          $('.search #souyisou .modal-body').append( () => {
+              return str
+          })
+          $('#serbt td').eq(4).on('click',( i,v ) => {
+            let cid = $('#serbt td')[1].innerText
+            
+          
+
+            $.ajax({
+                url:`/class/add/${cid}`,
+                method:'put',
+                data: {
+                  userid: id
+                },
+                success(msg){
+                  toastr.success("加入成功!");
+                  setTimeout(function () {
+                        window.location.reload()
+                  }, 1500)
+                }
+              })
+          })
+          }else{
+            str = `未找到指定班级,请重新输入查找。`
+            $('.search #souyisou .modal-body').append( () => {
+              return str
+            })
+          }
         }
-      })
-      if( !classList.length ){
-        str = `未找到指定班级,请重新输入查找。`
-      }
-      $('.search #souyisou .modal-body').append( ()=>{
-        return str
       })
     })
   })
+
 
   // $(()=>{
   //   let id = '<%- user.id %>'
